@@ -182,7 +182,7 @@ namespace UMoneyBynRate
                 fs = new FileStream(fName, FileMode.Append, FileAccess.Write);
                 fs.Position = fs.Length;                
                 StreamWriter sw = new StreamWriter(fs, Encoding.ASCII);
-                if (fs.Position == 0) sw.WriteLine("###UMoney BYN Rate ###\r\nDateTime\tRate");
+                if (fs.Position == 0) sw.WriteLine("### UMoney BYN Rate ###\r\nDateTime\tRate");
                 sw.WriteLine($"{DateTime.Now}\t{rate}");
                 sw.Close();
             }
