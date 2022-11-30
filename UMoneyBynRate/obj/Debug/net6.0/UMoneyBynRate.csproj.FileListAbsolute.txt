@@ -1,0 +1,17 @@
+C:\Users\dkxce\source\repos\UMoneyBynRate\UMoneyBynRate\bin\Debug\net6.0\UMoneyBynRate.exe
+C:\Users\dkxce\source\repos\UMoneyBynRate\UMoneyBynRate\bin\Debug\net6.0\UMoneyBynRate.deps.json
+C:\Users\dkxce\source\repos\UMoneyBynRate\UMoneyBynRate\bin\Debug\net6.0\UMoneyBynRate.runtimeconfig.json
+C:\Users\dkxce\source\repos\UMoneyBynRate\UMoneyBynRate\bin\Debug\net6.0\UMoneyBynRate.dll
+C:\Users\dkxce\source\repos\UMoneyBynRate\UMoneyBynRate\bin\Debug\net6.0\UMoneyBynRate.pdb
+C:\Users\dkxce\source\repos\UMoneyBynRate\UMoneyBynRate\obj\Debug\net6.0\UMoneyBynRate.csproj.AssemblyReference.cache
+C:\Users\dkxce\source\repos\UMoneyBynRate\UMoneyBynRate\obj\Debug\net6.0\UMoneyBynRate.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dkxce\source\repos\UMoneyBynRate\UMoneyBynRate\obj\Debug\net6.0\UMoneyBynRate.AssemblyInfoInputs.cache
+C:\Users\dkxce\source\repos\UMoneyBynRate\UMoneyBynRate\obj\Debug\net6.0\UMoneyBynRate.AssemblyInfo.cs
+C:\Users\dkxce\source\repos\UMoneyBynRate\UMoneyBynRate\obj\Debug\net6.0\UMoneyBynRate.csproj.CoreCompileInputs.cache
+C:\Users\dkxce\source\repos\UMoneyBynRate\UMoneyBynRate\obj\Debug\net6.0\UMoneyBynRate.dll
+C:\Users\dkxce\source\repos\UMoneyBynRate\UMoneyBynRate\obj\Debug\net6.0\refint\UMoneyBynRate.dll
+C:\Users\dkxce\source\repos\UMoneyBynRate\UMoneyBynRate\obj\Debug\net6.0\UMoneyBynRate.pdb
+C:\Users\dkxce\source\repos\UMoneyBynRate\UMoneyBynRate\obj\Debug\net6.0\UMoneyBynRate.genruntimeconfig.cache
+C:\Users\dkxce\source\repos\UMoneyBynRate\UMoneyBynRate\obj\Debug\net6.0\ref\UMoneyBynRate.dll
+C:\Users\dkxce\source\repos\UMoneyBynRate\UMoneyBynRate\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\dkxce\source\repos\UMoneyBynRate\UMoneyBynRate\obj\Debug\net6.0\UMoneyBynRate.csproj.CopyComplete
