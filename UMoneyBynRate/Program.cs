@@ -1,5 +1,17 @@
 ﻿///////////////////////////////////
-// dkxce UMoney BYN Rate Grabber //
+//      dkxce Rate Grabber       //
 ///////////////////////////////////
 
-UMoneyBynRate.UG.MainProc();
+using UMoneyBynRate;
+
+internal class Program
+{
+    private static int Main(string[] args)
+    {
+        RateGrabber.AddGrabber(new UMoneyBYNRateGrabber());
+        RateGrabber.AddGrabber(new TinkoffMoneyGrabber());
+        RateGrabber.AddGrabber(new AlfabankMoneyGrabber());
+        RateGrabber.Start();
+        return 0;
+    }
+}

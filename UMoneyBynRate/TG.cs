@@ -1,6 +1,6 @@
-﻿///////////////////////////////////
-// dkxce UMoney BYN Rate Grabber //
-///////////////////////////////////
+﻿////////////////////////////////////
+// dkxce Tinkoff BYN Rate Grabber //
+////////////////////////////////////
 
 using System.Net;
 using System.Text;
@@ -8,18 +8,20 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace UMoneyBynRate
-{    
-    public class UMoneyBYNRateGrabber: RateGrabber, IRateGrabber
+{
+    public class TinkoffMoneyGrabber : RateGrabber, IRateGrabber
     {
-        public UMoneyBYNRateGrabber() 
+        private List<string> AllowedTransfersCategories = new List<string>(new string[] { "CUTransfersPro", "CUTransfersPrivate" });
+
+        public TinkoffMoneyGrabber()
         {
-            name = "UMoney BYN Rate Grabber";
-            url = "https://yoomoney.ru/account/exchange-rates?lang=ru"; 
+            name = "Tinkoff BYN Rate Grabber";
+            url = "https://api.tinkoff.ru/v1/currency_rates?from=BYN&to=RUB";
         }
 
-        public UMoneyBYNRateGrabber(string url): base(url)
+        public TinkoffMoneyGrabber(string url) : base(url)
         {
-            name = "UMoney BYN Rate Grabber";            
+            name = "Tinkoff BYN Rate Grabber";
         }
 
         public override (double?, double?) GetRates(out Exception ex)
@@ -51,15 +53,25 @@ namespace UMoneyBynRate
 
             try
             {
-                int iof = response.IndexOf("{\"currencyCode\":\"BYN\"");
+                int iof = response.IndexOf("\"code\":933,\"name\":\"BYN\",\"strCode\":\"933\"");
                 if (iof < 0) throw new Exception("Exchange rate not found");
-                int lof = response.IndexOf("}", iof);
-                string data = response.Substring(iof, lof - iof + 1);
 
-                JObject jo = (JObject)JsonConvert.DeserializeObject(data);
-                double sellRate = jo["sellRate"].ToObject<double>();
-                double buyRate = jo["buyRate"].ToObject<double>();
-                return (sellRate, buyRate);
+                JObject jo = (JObject)JsonConvert.DeserializeObject(response);
+                JArray ja = (JArray)jo["payload"]["rates"];
+                double sellRate = double.MaxValue;
+                double buyRate = double.MinValue;
+                bool ok = false;
+                foreach (JObject o in ja)
+                {
+                    string category = o["category"].Value<string>();
+                    if (!AllowedTransfersCategories.Contains(category)) continue;
+                    double sr = o["sell"].ToObject<double>();
+                    double br = o["buy"].ToObject<double>();
+                    if (sr < sellRate) sellRate = sr;
+                    if (br > buyRate) buyRate = br;
+                    ok = true;
+                };
+                if (ok) return (sellRate, buyRate);
             }
             catch (Exception e) { ex = e; };
             return (null, null);

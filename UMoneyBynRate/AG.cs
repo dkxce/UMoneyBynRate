@@ -1,6 +1,6 @@
-﻿///////////////////////////////////
-// dkxce UMoney BYN Rate Grabber //
-///////////////////////////////////
+﻿////////////////////////////////////
+// dkxce Tinkoff BYN Rate Grabber //
+////////////////////////////////////
 
 using System.Net;
 using System.Text;
@@ -8,24 +8,27 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace UMoneyBynRate
-{    
-    public class UMoneyBYNRateGrabber: RateGrabber, IRateGrabber
+{
+    public class AlfabankMoneyGrabber : RateGrabber, IRateGrabber
     {
-        public UMoneyBYNRateGrabber() 
+        private List<string> AllowedTransfersCategories = new List<string>(new string[] { "CUTransfersPro", "CUTransfersPrivate" });
+
+        public AlfabankMoneyGrabber()
         {
-            name = "UMoney BYN Rate Grabber";
-            url = "https://yoomoney.ru/account/exchange-rates?lang=ru"; 
+            name = "Alfabank BYN Rate Grabber";
+            url = "https://alfabank.ru/api/v1/scrooge/currencies/alfa-rates?currencyCode.in=BYN&rateType.in=rateCass,makeCash&lastActualForDate.eq=true&clientType.eq=standardCC&date.lte={date}";
         }
 
-        public UMoneyBYNRateGrabber(string url): base(url)
+        public AlfabankMoneyGrabber(string url) : base(url)
         {
-            name = "UMoney BYN Rate Grabber";            
+            name = "Alfabank BYN Rate Grabber";
         }
 
         public override (double?, double?) GetRates(out Exception ex)
         {
             ex = null;
-            HttpWebRequest wreq = (HttpWebRequest)HttpWebRequest.Create(url);
+            string curl = url.Replace("{date}", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssK"));
+            HttpWebRequest wreq = (HttpWebRequest)HttpWebRequest.Create(curl);
             wreq.UserAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)";
             string response = "";
             int result = 0;
@@ -51,14 +54,19 @@ namespace UMoneyBynRate
 
             try
             {
-                int iof = response.IndexOf("{\"currencyCode\":\"BYN\"");
+                int iof = response.IndexOf("\"currencyCode\":\"BYN\"");
                 if (iof < 0) throw new Exception("Exchange rate not found");
-                int lof = response.IndexOf("}", iof);
-                string data = response.Substring(iof, lof - iof + 1);
 
-                JObject jo = (JObject)JsonConvert.DeserializeObject(data);
-                double sellRate = jo["sellRate"].ToObject<double>();
-                double buyRate = jo["buyRate"].ToObject<double>();
+                JObject jo = (JObject)JsonConvert.DeserializeObject(response);
+                JArray ja = (JArray)jo["data"];
+                jo = (JObject)ja[0];
+                ja = (JArray)jo["rateByClientType"];
+                jo = (JObject)ja[0];
+                ja = (JArray)jo["ratesByType"];
+                jo = (JObject)ja[0];
+                jo = (JObject)jo["lastActualRate"];
+                double sellRate = jo["sell"]["originalValue"].ToObject<double>();
+                double buyRate = jo["buy"]["originalValue"].ToObject<double>();
                 return (sellRate, buyRate);
             }
             catch (Exception e) { ex = e; };
