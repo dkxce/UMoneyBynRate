@@ -175,6 +175,9 @@ namespace UMoneyBynRate
                         string sText = sell.HasValue ? $"{sell.Value:000.00000000}" : "UNKNOWN";
                         string bText = buy.HasValue ? $"{buy.Value:000.00000000}" : "UNKNOWN";
 
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.Write($"{DateTime.Now} ");
+                        Console.ForegroundColor = ConsoleColor.White;
                         Console.Write("SELL ");
                         Console.ForegroundColor = ConsoleColor.Magenta;
                         if (sell.HasValue && sell.Value <= minSell) { Console.ForegroundColor = ConsoleColor.Green; flash = true; };
