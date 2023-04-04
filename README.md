@@ -11,3 +11,7 @@ https://www.tinkoff.ru/about/exchange/
 Курсы BYN Альфабанк    
 Get Alfabank Currency Rate (BYN by default) with log Statistics      
 https://alfabank.ru/currency/
+
+Курсы BYN Сбербанк     
+Get Sberbank Currency Rate (BYN by default) with log Statistics  
+https://mainfin.ru/bank/sberbank/currency/byn?name=&from=1001
