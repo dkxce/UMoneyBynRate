@@ -11,6 +11,7 @@ internal class Program
         RateGrabber.AddGrabber(new UMoneyBYNRateGrabber());
         RateGrabber.AddGrabber(new TinkoffMoneyGrabber());
         RateGrabber.AddGrabber(new AlfabankMoneyGrabber());
+        RateGrabber.AddGrabber(new SberMoneyGrabber());
         RateGrabber.Start();
         return 0;
     }
